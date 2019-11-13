@@ -1,13 +1,15 @@
 require('dotenv').config()
 require('./configs/mongoose.config')
+require('./configs/passport.config')
 
 const bodyParser   = require('body-parser')
 const cookieParser = require('cookie-parser')
 const express      = require('express')
-
 const logger       = require('morgan')
 const path         = require('path')
 
+const session = require('express-session')
+const passport = require('passport')
 
 
 
@@ -22,6 +24,15 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 
+
+// Passport session config
+app.use(session({
+  secret: 'SSSSSShhhhhhhhh',
+  resave: true,
+  saveUninitialized: true
+}))
+app.use(passport.initialize())
+app.use(passport.session())
 
 
 
