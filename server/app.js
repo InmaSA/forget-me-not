@@ -44,7 +44,7 @@ app.locals.title = 'Forget me not'
 // base URL's
 
 app.use('/', require('./routes/index.routes'))
-// app.use('/api', require('./routes/auth.routes'))
+app.use('/api', require('./routes/auth.routes'))
 app.use('/api/lists', require('./routes/list.routes'))
 // app.use('/api', require('./routes/item.routes'))
 
