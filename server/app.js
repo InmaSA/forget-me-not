@@ -11,27 +11,30 @@ const path         = require('path')
 
 
 
-const app_name = require('./package.json').name;
-const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
+const app_name = require('./package.json').name
+const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`)
 
-const app = express();
+const app = express()
 
 // Middleware Setup
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(logger('dev'))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser())
 
 
 
 
 // default value for title local
-app.locals.title = 'Forget me not';
+app.locals.title = 'Forget me not'
 
 
 
-const index = require('./routes/index');
-app.use('/', index);
+// base URL's
 
+app.use('/', require('./routes/index.routes'))
+app.use('/api', require('./routes/auth.routes'))
+app.use('/api/lists', require('./routes/list.routes'))
+app.use('/api', require('./routes/item.routes'))
 
-module.exports = app;
+module.exports = app
