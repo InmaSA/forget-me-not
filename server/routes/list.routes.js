@@ -29,3 +29,5 @@ router.get('/update', (req, res, next) => {
   // el id me llegará por params y el nuevo name
   List.findByIdAndUpdate(id, {name})
 })
+
+module.exports = router
