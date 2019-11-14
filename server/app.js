@@ -1,6 +1,7 @@
 require('dotenv').config()
 require('./configs/mongoose.config')
 require('./configs/passport.config')
+const cors = require('cors')
 
 const bodyParser   = require('body-parser')
 const cookieParser = require('cookie-parser')
@@ -23,6 +24,18 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
+
+
+// CORS middleware
+const whitelist = ['http://localhost:3000']
+const corsOptions = {
+  origin: (origin, cb) => {
+    const originIsWhitelisted = whitelist.includes(origin)
+    cb(null, originIsWhitelisted)
+  },
+  credentials: true
+}
+app.use(cors(corsOptions))
 
 
 // Passport session config

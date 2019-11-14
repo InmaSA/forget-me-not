@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import { registerUser } from '../../redux/actions/auth-actions'
+
 
 class Signup extends Component {
   constructor() {
@@ -11,17 +15,23 @@ class Signup extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      })
+    }
+  }
 
   handleInputChange = e => {
     const {name, value} = e.target
     this.setState({[name] : value})
-    console.log(this.state)
   }
 
   handleFormSubmit = e => {
     e.preventDefault()
     const {username, password} = this.state
-    console.log('YA casi!!')
+    this.props.registerUser({username, password}, this.props.history)
   }
 
   render() {
@@ -33,11 +43,13 @@ class Signup extends Component {
           <form className="col-4" onSubmit={this.handleFormSubmit}>
             <div className="form-group">
               <label htmlFor="username">Usuario</label>
+              <span>{errors.username}</span>
               <input type="text" className="form-control" id="username" placeholder="Elisabeth Benet"
               name="username" error={errors.username} value={this.state.username} onChange={this.handleInputChange}></input>
             </div>
             <div className="form-group">
               <label htmlFor="password">Contraseña</label>
+              <span>{errors.password}</span>
               <input type="password" className="form-control" id="password" placeholder="Contraseña"
               name="password" error={errors.password} value={this.state.password} onChange={this.handleInputChange}></input>
             </div>
@@ -50,4 +62,21 @@ class Signup extends Component {
   }  
 }
 
-export default Signup
+
+Signup.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+})
+
+
+
+export default connect(
+  mapStateToProps,
+  { registerUser }
+) (withRouter(Signup))

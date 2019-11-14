@@ -3,7 +3,7 @@ import AuthServices from '../../services/auth.services'
 import {
   GET_ERRORS,
   SET_CURRENT_USER,
-  USER_LOADING
+  // USER_LOADING
 } from './types'
 
 const authServices = new AuthServices()
@@ -29,7 +29,7 @@ export const registerUser = (username, password, history) => dispatch => {
 
 
 /*--------------------------- LOG IN----------------------------- */
-export const loginUser = (username, password) => dispatch => {
+export const loginUser = (username, password, history) => dispatch => {
   authServices.login(username, password)
   .then(theUser => {
     dispatch({
@@ -47,7 +47,7 @@ export const loginUser = (username, password) => dispatch => {
 
 
 /*--------------------------- LOGGED IN----------------------------- */
-export const fetchUser = () => {
+export const fetchUser = () => dispatch => {
   authServices.loggedin()
   .then(theUser => {
     dispatch({
@@ -65,7 +65,7 @@ export const fetchUser = () => {
 
 
 /*--------------------------- LOG OUT----------------------------- */
-export const logoutUser = () => dispatch => {
+export const logoutUser = (history) => dispatch => {
   authServices.loggedin()
   .then(theUser => {
     dispatch({
