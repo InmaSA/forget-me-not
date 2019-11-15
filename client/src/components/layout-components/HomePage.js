@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
 
 class HomePage extends Component {
   constructor() {
@@ -6,10 +7,20 @@ class HomePage extends Component {
   }
 
   render() {
+
+    console.log(this.props)
     return(
       <h1>Bienvenido a Forget me not</h1>
     )
   }
 }
 
-export default HomePage
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+})
+
+
+export default connect(
+  mapStateToProps,
+) (HomePage)

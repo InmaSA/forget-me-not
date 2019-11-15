@@ -9,8 +9,8 @@ export default class AuthServices {
       })
   }
 
-  signup = (username, password) => this.service.post('signup', { username, password })
-  login = (username, password) => this.service.post('login', { username, password })
+  signup = ({username, password}) => this.service.post('signup', { username, password })
+  login = ({username, password}) => this.service.post('login', { username, password })
   logout = () => this.service.post('logout')
   loggedin = () => this.service.get('loggedin')
 

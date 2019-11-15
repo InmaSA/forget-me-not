@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import {Link, withRouter} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import { registerUser } from '../../redux/actions/auth-actions'
+import AuthServices from '../../services/auth.services'
+
+const authServices = new AuthServices()
 
 
 class Signup extends Component {
@@ -10,16 +12,7 @@ class Signup extends Component {
     super()
     this.state = {
       username: '',
-      password: '',
-      errors: {}
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      })
+      password: ''
     }
   }
 
@@ -36,22 +29,22 @@ class Signup extends Component {
 
   render() {
 
-    const {errors} = this.state
     return (
       <div className="container">
         <div className="row justify-content-center">
           <form className="col-4" onSubmit={this.handleFormSubmit}>
             <div className="form-group">
+              <div>
+                <small>{this.props.errors.error}</small>
+              </div>
               <label htmlFor="username">Usuario</label>
-              <span>{errors.username}</span>
               <input type="text" className="form-control" id="username" placeholder="Elisabeth Benet"
-              name="username" error={errors.username} value={this.state.username} onChange={this.handleInputChange}></input>
+              name="username" value={this.state.username} onChange={this.handleInputChange}></input>
             </div>
             <div className="form-group">
               <label htmlFor="password">Contraseña</label>
-              <span>{errors.password}</span>
               <input type="password" className="form-control" id="password" placeholder="Contraseña"
-              name="password" error={errors.password} value={this.state.password} onChange={this.handleInputChange}></input>
+              name="password" value={this.state.password} onChange={this.handleInputChange}></input>
             </div>
             <button type="submit" className="btn btn-primary">Acceptar</button>
             <p>¿Ya estás registrado? <Link to="/login">Accede a tu cuenta</Link></p>
@@ -64,7 +57,6 @@ class Signup extends Component {
 
 
 Signup.propTypes = {
-  registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 }
@@ -74,9 +66,27 @@ const mapStateToProps = state => ({
   errors: state.errors
 })
 
-
+const mapDispatchToProps = dispatch => {
+  return {
+    registerUser(userData, history) {
+      authServices.signup(userData)
+      .then(response => {
+        dispatch(
+          {type:'SET_CURRENT_USER', payload: response.data}
+        )
+        history.push('/')
+      })
+      .catch(err => {
+        dispatch(
+          {type: 'GET_ERRORS', payload: err.response.data.message}
+        )
+        history.push('/signup')
+      })
+    }
+  }
+}
 
 export default connect(
   mapStateToProps,
-  { registerUser }
-) (withRouter(Signup))
+  mapDispatchToProps
+) (Signup)

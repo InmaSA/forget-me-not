@@ -20,7 +20,7 @@ class Login extends Component {
               <input type="password" className="form-control" id="password" placeholder="Contraseña"></input>
             </div>
             <button type="submit" className="btn btn-primary">Acceder</button>
-            <p>¿Aún no tienes cuenta? <Link to="/singup">Regístrate</Link></p>
+            <p>¿Aún no tienes cuenta? <Link to="/signup">Regístrate</Link></p>
           </form>
         </div>
     </div>
