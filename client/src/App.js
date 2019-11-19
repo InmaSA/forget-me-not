@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 // import './App.css'
@@ -9,50 +9,53 @@ import Navbar from './components/layout-components/AppNavbar'
 import HomePage from './components/layout-components/HomePage'
 import Login from './components/auth-components/Login'
 import Signup from './components/auth-components/Signup'
+import addListForm from './components/list-components.js/addListForm'
 
 const authServices = new AuthServices()
 
-class App extends Component {
-  constructor() {
-    super()
+const App = (props) => {
+
+  if(props.auth.loggedInUser === null || props.auth.isAuthenticated === false){
+    props.fetchUser()
   }
-
   
-  render() {
+  if(props.auth.isAuthenticated == true) {
+    return (
+      <>
+        <Navbar/>
 
-    if(this.props.auth.loggedInUser == null){
+        <Switch>
+          <Route path="/new-list" exact component={addListForm}></Route>
+          {/* <ProtectedRoute path="/" exact component={HomePage}></ProtectedRoute> */}
+          <Route path="/" exact component={HomePage}></Route>
+        </Switch>
 
-      this.props.fetchUser()
-    }
-    
-      return (
-          <>
-            <Navbar/>
-            <div>
-                <small>{this.props.errors.error}</small>
-              </div>
-            <Switch>
-              <Route path="/" exact component={HomePage}></Route>
-              <Route path="/login" exact component={Login}></Route>
-              <Route path="/signup" exact component={Signup}></Route>
-            </Switch>
-          </>
-  
-      )
+      </>
+    )
   }
+    return (
+        <>
+          <Navbar/>
+
+          <Switch>
+            <Route path="/" exact component={HomePage}></Route>
+            <Route path="/login" exact component={Login}></Route>
+            <Route path="/signup" exact component={Signup}></Route>
+          </Switch>
+        </>
+    )
+
 
 }
 
 
 App.propTypes = {
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired
 }
 
 
 const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.errors
+  auth: state.auth
 })
 
 
@@ -69,10 +72,6 @@ const mapDispatchToProps = dispatch => {
         dispatch(
           {type: 'GET_ERRORS', payload: err.response.data.message}
         )
-        // history.push('/signup')
-        // dispatch(
-        //   {type:'LOGGEDIN_USER', payload: false}
-        // )
         console.log(err)
       })
     }

@@ -14,8 +14,12 @@ router.get('/', (req, res, next) => {
 
 // CREATE a new list
 router.post('/new', (req, res, next) => {
-
+  List.create(req.body)
+  .then(theNewList => {
+    res.json(theNewList)})
+  .catch(err => console.log('Error creando nueva lista', err))
 })
+
 
 // DELETE a list
 router.get('/delete', (req, res, next) => {

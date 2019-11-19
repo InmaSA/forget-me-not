@@ -8,11 +8,11 @@ const authServices = new AuthServices()
 
 const AppNavbar = (props) => {
 
-  if(props.auth.loggedInUser == null || props.auth.isAuthenticated == false){
+  if(props.auth.loggedInUser === null || props.auth.isAuthenticated === false){
     props.fetchUser()
   }
   
-  if(props.auth.isAuthenticated == false) {
+  if(props.auth.isAuthenticated === false) {
     return(
       <Navbar bg="light" expand="lg">
         <Navbar.Brand href="/">
@@ -37,6 +37,8 @@ const AppNavbar = (props) => {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Navbar.Text>Hola de nuevo {props.auth.loggedInUser.username}</Navbar.Text>
+          <Nav.Link href="#">Mis listas</Nav.Link>
+          <Nav.Link href="/new-list">Crear nueva</Nav.Link>
           <Nav.Link to="/" onClick={props.logoutUser}>Salir</Nav.Link>
         </Nav>
       </Navbar.Collapse>
