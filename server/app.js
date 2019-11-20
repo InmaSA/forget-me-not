@@ -62,6 +62,6 @@ app.locals.title = 'Forget me not'
 app.use('/', require('./routes/index.routes'))
 app.use('/api', require('./routes/auth.routes'))
 app.use('/api/lists', require('./routes/list.routes'))
-// app.use('/api', require('./routes/item.routes'))
+app.use('/api/items', require('./routes/items.routes'))
 
 module.exports = app
