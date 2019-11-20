@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import ItemServices from '../../services/item.services'
+import DatePicker, { registerLocale} from 'react-datepicker'
+import es from 'date-fns/locale/es'
+import 'react-datepicker/dist/react-datepicker.css'
+
+registerLocale('es', es)
 
 const itemServices = new ItemServices()
 
@@ -12,8 +17,8 @@ class addItemForm extends Component {
     this.state = {
       itemName: '',
       description: '',
-      quantity: null,
-      date: null // me falta meter el campo de date en el formulario
+      quantity: '',
+      date: null
     }
   }
 
@@ -21,6 +26,9 @@ class addItemForm extends Component {
     const {name, value} = e.target
     this.setState({[name] : value})
   }
+  handleChange = aDate => {
+    this.setState({date: aDate})}
+
 
   handleFormSubmit = e => {
     e.preventDefault()
@@ -29,6 +37,7 @@ class addItemForm extends Component {
 
     this.props.createNewItem({itemName, description, quantity, date})
   }
+  
 
   render() {
 
@@ -50,12 +59,18 @@ class addItemForm extends Component {
               value={this.state.description} onChange={this.handleInputChange}></input>
             </div>
             <div className="form-group">
-              <div>
-                <small>{this.props.errors.error}</small>
-              </div>
-              <label htmlFor="quantity">Nombre</label>
+              <label htmlFor="quantity">Cantidad</label>
               <input type="number" className="form-control" id="quantity" name="quantity" 
-              min="0" max="1000000" value={this.state.description} onChange={this.handleInputChange}></input>
+              min="0" max="1000000" value={this.state.quantity} onChange={this.handleInputChange}></input>
+            </div>
+            <div className="form-group">
+              <label htmlFor="date">Fecha</label><br></br>
+              <DatePicker
+                selected={this.state.date}
+                onChange={this.handleChange}
+                locale="es"
+                dateFormat="dd/MM/yy"
+              />
             </div>
 
             <button type="submit" className="btn btn-primary">Añadir</button>
