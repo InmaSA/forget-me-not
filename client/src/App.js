@@ -10,8 +10,9 @@ import Navbar from './components/layout-components/AppNavbar'
 import HomePage from './components/layout-components/HomePage'
 import Login from './components/auth-components/Login'
 import Signup from './components/auth-components/Signup'
-import addListForm from './components/list-components.js/addListForm'
-import listDashboard from './components/list-components.js/listsDashboard'
+import addListForm from './components/list-components/addListForm'
+import listDashboard from './components/list-components/listsDashboard'
+import addItemForm from './components/items-components/addItemForm'
 
 const authServices = new AuthServices()
 
@@ -27,8 +28,11 @@ const App = (props) => {
         <Navbar/>
 
         <Switch>
-          <ProtectedRoute path="/new-list" exact component={addListForm}/>
+          <ProtectedRoute path="/new-list" exact component={addListForm}></ProtectedRoute>
           <ProtectedRoute path="/lists" exact component={listDashboard}></ProtectedRoute>
+
+          <ProtectedRoute path="/new-item" exact component={addItemForm}></ProtectedRoute>
+          
           <Route path="/" exact component={HomePage}></Route>
         </Switch>
       </>

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export default class AuthServices {
+export default class ListServices {
   constructor() {
 
       this.service = axios.create({
