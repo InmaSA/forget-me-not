@@ -10,6 +10,7 @@ export default class AuthServices {
   }
 
   addList = ({listName, user_id}) => this.service.post('/lists/new', { listName, user_id })
+  getAllLists = (user_id) => this.service.get(`/lists/${user_id}`)
 
   
 }  

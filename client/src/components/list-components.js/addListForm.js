@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import ListServices from '../../services/list.services'
@@ -69,15 +68,14 @@ const mapDispatchToProps = dispatch => {
       listServices.addList(listData)
       .then(response => {
         dispatch(
-          {type:'GET_USER_LISTS', payload: response.data}
+          {type:'NEW_LIST', payload: response.data}
         )
-        history.push('/')
+        history.push('/lists')
       })
       .catch(err => {
         dispatch(
           {type: 'GET_ERRORS', payload: err.response.data.message}
         )
-        console.log(err)
       })
     }
   }

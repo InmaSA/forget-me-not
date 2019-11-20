@@ -1,6 +1,6 @@
 const initialState = {
-  allLists: []
-
+  allLists: [],
+  newList:{}
 }
 
 export default function(state = initialState, action={}) {
@@ -10,6 +10,11 @@ export default function(state = initialState, action={}) {
         ...state,
         allLists: action.payload,
       }
+      case 'NEW_LIST':
+          return {
+            ...state,
+            newList: action.payload,
+          }
     default:
       return state
   }
