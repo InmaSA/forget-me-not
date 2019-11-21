@@ -8,7 +8,7 @@ import ListServices from '../../services/list.services'
 const listServices = new ListServices()
 
 
-class listDashboard extends Component {
+class ListDashboard extends Component {
   constructor() {
     super()
   }
@@ -35,6 +35,7 @@ class listDashboard extends Component {
               <article key={elm._id} className="col-lg-3 col-md-6">
                 <img width="30%" src="images/note.png" alt="note icon"></img>
                 <h3>{elm.listName}</h3>
+                <Link to={elm._id}>Ver</Link>
               </article>
               )  
           }
@@ -45,7 +46,7 @@ class listDashboard extends Component {
   } 
 }
 
-listDashboard.propTypes = {
+ListDashboard.propTypes = {
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
   lists: PropTypes.object.isRequired
@@ -79,4 +80,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-) (listDashboard)
+) (ListDashboard)

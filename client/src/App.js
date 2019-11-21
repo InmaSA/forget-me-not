@@ -10,9 +10,10 @@ import Navbar from './components/layout-components/AppNavbar'
 import HomePage from './components/layout-components/HomePage'
 import Login from './components/auth-components/Login'
 import Signup from './components/auth-components/Signup'
-import addListForm from './components/list-components/addListForm'
-import listDashboard from './components/list-components/listsDashboard'
-import addItemForm from './components/items-components/addItemForm'
+import AddListForm from './components/list-components/addListForm'
+import ListDashboard from './components/list-components/listsDashboard'
+import List from './components/list-components/list'
+import AddItemForm from './components/items-components/addItemForm'
 
 const authServices = new AuthServices()
 
@@ -24,30 +25,36 @@ const App = (props) => {
   
   if(props.auth.isAuthenticated) {
     return (
-      <>
+      <>  
         <Navbar/>
 
-        <Switch>
-          <ProtectedRoute path="/new-list" exact component={addListForm}></ProtectedRoute>
-          <ProtectedRoute path="/lists" exact component={listDashboard}></ProtectedRoute>
+        <div className="container">
+          <Switch>
+            <ProtectedRoute path="/new-list" exact component={AddListForm}></ProtectedRoute>
+            <ProtectedRoute path="/lists" exact component={ListDashboard}></ProtectedRoute>
+            <ProtectedRoute path="/:list_id" exact component={List}></ProtectedRoute>
+        
 
-          <ProtectedRoute path="/new-item" exact component={addItemForm}></ProtectedRoute>
-          
-          <Route path="/" exact component={HomePage}></Route>
-        </Switch>
+            <ProtectedRoute path="/new-item" exact component={AddItemForm}></ProtectedRoute>
+            
+            <Route path="/" exact component={HomePage}></Route>
+          </Switch>
+        </div>
       </>
     )
   }
     return (
-        <>
-          <Navbar/>
+      <>
+        <Navbar/>
 
+        <div className="container">
           <Switch>
             <Route path="/" exact component={HomePage}></Route>
             <Route path="/login" exact component={Login}></Route>
             <Route path="/signup" exact component={Signup}></Route>
           </Switch>
-        </>
+        </div>
+      </>
     )
 
 

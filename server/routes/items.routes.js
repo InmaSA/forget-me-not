@@ -17,5 +17,11 @@ router.post('/new', (req, res, next) => {
 })
 
 
+// GET items of a list
+router.get('/view/:list_id', (req,res,next) => {
+  const {list_id} = req.params
+  console.log(list_id)
+})
+
 
 module.exports = router
