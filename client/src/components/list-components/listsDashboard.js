@@ -60,6 +60,20 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
+    getThisListName(list_id) {
+      listServices.getOneList(list_id)
+      .then(response => {
+        dispatch(
+          {type: 'FIND_THIS_LIST', payload: response.data}
+        )
+      })
+      .catch(err => {
+        dispatch(
+          {type: 'GET_ERRORS', payload: err.response.data.message}
+        )
+        console.log(err.response.data.message)
+        })  
+    },
     getAlltheLists(user_id) {
       listServices.getAllLists(user_id)
       .then(response => {

@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import ItemServices from '../../services/item.services'
 import DatePicker, { registerLocale} from 'react-datepicker'
 import es from 'date-fns/locale/es'
 import 'react-datepicker/dist/react-datepicker.css'
+
+import ItemServices from '../../services/item.services'
 
 registerLocale('es', es)
 
 const itemServices = new ItemServices()
 
 
-class addItemForm extends Component {
+class AddItemForm extends Component {
   constructor() {
     super()
     this.state = {
@@ -40,7 +41,7 @@ class addItemForm extends Component {
   
 
   render() {
-
+    console.log(this.props)
     return (
       <div className="container">
         <div className="row justify-content-center">
@@ -82,12 +83,14 @@ class addItemForm extends Component {
 }
 
 
-addItemForm.propTypes = {
+AddItemForm.propTypes = {
+  auth: PropTypes.object.isRequired,
   lists: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
+  auth: state.auth,
   lists: state.lists,
   errors: state.errors
 })
@@ -113,4 +116,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-) (addItemForm)
+) (AddItemForm)

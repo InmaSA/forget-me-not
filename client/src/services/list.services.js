@@ -10,7 +10,8 @@ export default class ListServices {
   }
 
   addList = ({listName, user_id}) => this.service.post('/lists/new', { listName, user_id })
-  getAllLists = (user_id) => this.service.get(`/lists/${user_id}`)
+  getAllLists = (user_id) => this.service.get(`/lists/all?user_id=${user_id}`)
+  getOneList = (_id) => this.service.get(`/lists/one?_id=${_id}`)
 
   
 }  

@@ -4,8 +4,8 @@ const router = express.Router()
 const List = require('../models/List.model')
 
 // GET all user's lists
-router.get('/:user_id', (req, res, next) => {
-  const {user_id} = req.params
+router.get('/all', (req, res, next) => {
+  const {user_id} = req.query
   List.find({user_id})
   .then(allLists => res.json(allLists))
   .catch(err => {
@@ -24,6 +24,17 @@ router.post('/new', (req, res, next) => {
     res.status(500).json({message: 'Error creando nueva lista'})
   })
 })
+
+// GET one list
+router.get('/one', (req,res,next) => {
+  const {_id} = req.query
+  List.findById(_id)
+  .then(theList => res.json(theList))
+  .catch(err => {
+    res.status(500).json({message: 'Error obteniendo la lista'})
+  })
+})
+
 
 
 // // DELETE a list

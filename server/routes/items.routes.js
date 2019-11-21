@@ -20,7 +20,13 @@ router.post('/new', (req, res, next) => {
 // GET items of a list
 router.get('/view/:list_id', (req,res,next) => {
   const {list_id} = req.params
-  console.log(list_id)
+
+  Item.find({list_id})
+  // .populate('list_id')
+  .then(listAndItems => res.json(listAndItems))
+  .catch(err => {
+    res.status(500).json({message: 'Error obteniendo los items de esta lista'})
+  })  
 })
 
 

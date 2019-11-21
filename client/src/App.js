@@ -32,10 +32,10 @@ const App = (props) => {
           <Switch>
             <ProtectedRoute path="/new-list" exact component={AddListForm}></ProtectedRoute>
             <ProtectedRoute path="/lists" exact component={ListDashboard}></ProtectedRoute>
-            <ProtectedRoute path="/:list_id" exact component={List}></ProtectedRoute>
-        
-
-            <ProtectedRoute path="/new-item" exact component={AddItemForm}></ProtectedRoute>
+            <ProtectedRoute path="/:_id" exact component={List}></ProtectedRoute>
+            {/* <Route path="/this-list" exact render={match => <List {...match} list_id={list_id}/>}></Route>
+            <Route path="/add-items" exact render={match => <AddItemForm />}></Route> */}
+            <ProtectedRoute path="/add-items/:_id" exact component={AddItemForm}></ProtectedRoute>
             
             <Route path="/" exact component={HomePage}></Route>
           </Switch>
