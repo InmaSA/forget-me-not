@@ -29,5 +29,13 @@ router.get('/view/:list_id', (req,res,next) => {
   })  
 })
 
+// POST a change in checked field
+router.get('/edit/:_id', (req,res,next) => {
+  console.log("hola!!!!!!")
+  Item.findByIdAndUpdate(req.params._id, {checked: !checked}, { new: true })
+  .then(editedItem => console.log(editedItem))
+})
+
+
 
 module.exports = router

@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-// import './App.css'
+import './App.css'
 import {Switch, Route} from 'react-router-dom'
 import AuthServices from '../src/services/auth.services'
 
@@ -13,7 +13,6 @@ import Signup from './components/auth-components/Signup'
 import AddListForm from './components/list-components/addListForm'
 import ListDashboard from './components/list-components/listsDashboard'
 import List from './components/list-components/list'
-import AddItemForm from './components/items-components/addItemForm'
 
 const authServices = new AuthServices()
 
@@ -33,9 +32,6 @@ const App = (props) => {
             <ProtectedRoute path="/new-list" exact component={AddListForm}></ProtectedRoute>
             <ProtectedRoute path="/lists" exact component={ListDashboard}></ProtectedRoute>
             <ProtectedRoute path="/:_id" exact component={List}></ProtectedRoute>
-            {/* <Route path="/this-list" exact render={match => <List {...match} list_id={list_id}/>}></Route>
-            <Route path="/add-items" exact render={match => <AddItemForm />}></Route> */}
-            <ProtectedRoute path="/add-items/:_id" exact component={AddItemForm}></ProtectedRoute>
             
             <Route path="/" exact component={HomePage}></Route>
           </Switch>

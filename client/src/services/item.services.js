@@ -9,8 +9,9 @@ export default class ItemServices {
       })
   }
 
-  // tengo que meter data y list_id 
-  addItem = ({itemName, description, quantity, date}) => this.service.post('/items/new', {itemName, description, quantity, date})
+
+  addItem = ({itemName, description, quantity, date, list_id}) => this.service.post('/items/new', {itemName, description, quantity, date, list_id})
   getAllItems = (list_id) => this.service.get(`/items/view/${list_id}`)
+  editChecked= (_id) => this.service.get(`/items/edit/${_id}`)
   
 }  

@@ -13,7 +13,7 @@ const itemServices = new ItemServices()
 
 
 class AddItemForm extends Component {
-  constructor() {
+  constructor(props) {
     super()
     this.state = {
       itemName: '',
@@ -34,9 +34,9 @@ class AddItemForm extends Component {
   handleFormSubmit = e => {
     e.preventDefault()
     const {itemName, description, quantity, date} = this.state
-    // coger el id de la lista al que va a pertenecer este item
+    const list_id = this.props.list_id
 
-    this.props.createNewItem({itemName, description, quantity, date})
+    this.props.createNewItem({itemName, description, quantity, date, list_id})
   }
   
 
@@ -74,7 +74,7 @@ class AddItemForm extends Component {
               />
             </div>
 
-            <button type="submit" className="btn btn-primary">Añadir</button>
+            <button onClick={this.props.CloseModal} type="submit" className="btn btn-primary">Añadir</button>
           </form>
         </div>
       </div>
@@ -85,13 +85,11 @@ class AddItemForm extends Component {
 
 AddItemForm.propTypes = {
   auth: PropTypes.object.isRequired,
-  lists: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  lists: state.lists,
   errors: state.errors
 })
 
